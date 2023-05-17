@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp"
+    android:layout_height="260dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_bg">
+
+    <ImageView
+        android:id="@+id/ic_remove_ads"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="25dp"
+        android:src="@drawable/ic_general_crown"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ad_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:src="@drawable/ic_general_close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0.5" />
+
+    <TextView
+        android:id="@+id/remove_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Ads"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/assistantextrabold"
+        app:layout_constraintTop_toBottomOf="@+id/ic_remove_ads"
+        app:layout_constraintStart_toStartOf="@+id/ic_remove_ads"/>
+
+    <TextView
+        android:id="@+id/remove_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Support developers with a cup of coffee ☕️"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/assistantregular"
+        app:layout_constraintTop_toBottomOf="@+id/remove_title"
+        app:layout_constraintStart_toStartOf="@+id/ic_remove_ads"/>
+
+
+
+    <Button
+        android:id="@+id/remove_btn"
+        android:layout_width="285dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="22dp"
+        style="@style/MyButtonStyle"
+        app:layout_constraintTop_toBottomOf="@+id/remove_title2"
+        app:layout_constraintStart_toStartOf="@+id/remove_title"/>
+
+    <TextView
+        android:id="@+id/remove_btn_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="11dp"
+        android:text="$ 2.99"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:fontFamily="@font/assistantextrabold"
+        android:elevation="10dp"
+        app:layout_constraintStart_toStartOf="@id/remove_btn"
+        app:layout_constraintTop_toTopOf="@id/remove_btn"/>
+
+    <TextView
+        android:id="@+id/remove_btn_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
+        android:text="for Life time!"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/assistantextrabold"
+        android:elevation="10dp"
+        app:layout_constraintStart_toEndOf="@id/remove_btn_text1"
+        app:layout_constraintTop_toTopOf="@id/remove_btn_text1"
+        app:layout_constraintBottom_toBottomOf="@id/remove_btn_text1"/>
+
+    <TextView
+        android:id="@+id/remove_btn_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="$̶ ̶4̶.̶9̶9̶"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:fontFamily="@font/assistantregular"
+        android:elevation="10dp"
+        app:layout_constraintStart_toStartOf="@id/remove_btn_text1"
+        app:layout_constraintTop_toBottomOf="@id/remove_btn_text1"/>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="28dp"
+        android:background="@drawable/duijiao_bg"
+        android:text="40% Off"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/assistantextrabold"
+        android:gravity="center"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="@id/remove_btn"
+        app:layout_constraintTop_toTopOf="@id/remove_btn"/>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:text="Restore Purchase"
+        android:textSize="16sp"
+        android:textColor="#B2FFFFFF"
+        android:fontFamily="@font/assistantextrabold"
+        app:layout_constraintTop_toBottomOf="@id/remove_btn"
+        app:layout_constraintStart_toStartOf="@id/remove_btn"
+        app:layout_constraintEnd_toEndOf="@id/remove_btn"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

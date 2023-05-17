@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    tools:context=".HomeActivity">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/select_head_view" />
+
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/main_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/select_main_switch_btn"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/off_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OFF"
+        android:textColor="#FFFFFFFF"
+        android:textSize="24sp"
+        android:fontFamily="@font/assistantextrabold"
+        app:layout_constraintTop_toBottomOf="@+id/main_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="117.5dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="108dp"
+        app:cardBackgroundColor="#1C1C1E"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="18.68dp"
+                android:layout_height="18.61dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15.24dp"
+                app:srcCompat="@drawable/ic_general_setting" />
+
+            <TextView
+                android:layout_width="74.34dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/assistantextrabold"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="#FFFFFFFF"
+                android:textSize="16.8sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+        <ImageView
+            android:id="@+id/line_sos"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:layout_marginStart="13.7dp"
+            android:layout_marginTop="118dp"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_0"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_sos"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/line_1"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_0"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_2"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_1"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
+
+        <ImageView
+            android:id="@+id/line_3"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_2"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_4"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_3"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_5"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_4"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_6"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:layout_marginStart="1dp"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_5"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_7"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_6"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/line_8"
+            android:layout_width="38.36dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/headline_off_none"
+            app:layout_constraintStart_toEndOf="@+id/line_7"
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"
+            android:clickable="true"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/num_sos"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/select_radiobutton_sos"
+            android:layout_marginStart="14.44dp"
+            android:layout_marginTop="85dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="true"
+            android:focusable="true"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/num_0"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/select_radiobutton_0"
+            app:layout_constraintStart_toEndOf="@id/num_sos"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true"
+            android:focusable="true"/>
+        <ImageView
+            android:id="@+id/num_1"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_1"
+            app:layout_constraintStart_toEndOf="@id/num_0"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true" />
+        <ImageView
+            android:id="@+id/num_2"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_2"
+            app:layout_constraintStart_toEndOf="@id/num_1"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true" />
+        <ImageView
+            android:id="@+id/num_3"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_3"
+            app:layout_constraintStart_toEndOf="@id/num_2"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true" />
+        <ImageView
+            android:id="@+id/num_4"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_4"
+            app:layout_constraintStart_toEndOf="@id/num_3"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/num_5"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_5"
+            app:layout_constraintStart_toEndOf="@id/num_4"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true" />
+        <ImageView
+            android:id="@+id/num_6"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_6"
+            app:layout_constraintStart_toEndOf="@id/num_5"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/num_7"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_7"
+            app:layout_constraintStart_toEndOf="@id/num_6"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/num_8"
+            android:layout_width="38.36dp"
+            android:layout_height="25dp"
+            android:src="@drawable/select_radiobutton_8"
+            app:layout_constraintStart_toEndOf="@id/num_7"
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/head_btn"
+            android:layout_width="0.1dp"
+            android:layout_height="0.1dp"
+            android:src="@drawable/select_head_seekbar_button"
+            app:layout_constraintStart_toStartOf="@id/line_0"
+            app:layout_constraintEnd_toEndOf="@id/num_0"
+            app:layout_constraintTop_toBottomOf="@id/line_0" />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:max="9"
+        android:progress="1"
+        android:progressDrawable="@android:color/transparent"
+        android:thumb="@drawable/select_head_seekbar_button"
+        app:layout_constraintStart_toStartOf="@id/num_sos"
+        app:layout_constraintEnd_toEndOf="@id/num_8"
+        app:layout_constraintTop_toBottomOf="@id/line_sos" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

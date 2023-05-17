@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Flashlight" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BackgroundTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#FF1C1C1E</item>
+        <item name="android:bottom">@color/purple_200</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="settingsText" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/assistantextrabold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="switchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#007Bff</item>
+        <item name="colorSwitchThumbNormal">#FFFFFF</item>
+    </style>
+
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/buttons_ripple</item>
+    </style>
+    
+
+
+</resources>
