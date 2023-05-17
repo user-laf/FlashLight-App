@@ -17,15 +17,21 @@ import com.example.flashlight.databinding.ActivityHomeBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityHomeBinding
+
+    lateinit var cameraManager: CameraManager
+    var cameraId: String? = null //定义变量用来存储后置摄像头ID
+    var isSwitchOff: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //创建 MediaPlayer 对象
@@ -37,62 +43,32 @@ class HomeActivity : AppCompatActivity() {
         binding.line0.setImageResource(R.drawable.headline_on)
         binding.num0.isSelected = true
         binding.offOn.text = "ON"
-        var isSwitchOff = false
+        isSwitchOff = false
 
-
-        val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        var cameraId: String? = null //定义变量用来存储后置摄像头ID
-        try {
-            if (cameraId == null) {
-                //遍历摄像头ID
-                for (id in cameraManager.cameraIdList) {
-                    //获取摄像头的特性对象
-                    val characteristics = cameraManager.getCameraCharacteristics(id)
-                    //获取摄像头的朝向，前置还是后置
-                    val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
-                    //如果是后置摄像头，将摄像头ID存储到cameraID，退出遍历
-                    if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
-                        cameraId = id
-                        break
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        //开启闪光灯
-        fun turnOnFlashLight() {
-            try {
-                // 通过找到的后置摄像头ID，打开闪光灯
-                if (cameraId != null) {
-                    cameraManager.setTorchMode(cameraId, true)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        //关闭闪光灯
-        fun turnOffFlashLight() {
-            try {
-                if (cameraId != null) {
-                    cameraManager.setTorchMode(cameraId, false)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        //遍历摄像头ID
+        for (id in cameraManager.cameraIdList) {
+            //获取摄像头的特性对象
+            val characteristics = cameraManager.getCameraCharacteristics(id)
+            //获取摄像头的朝向，前置还是后置
+            val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
+            //如果是后置摄像头，将摄像头ID存储到cameraID，退出遍历
+            if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                cameraId = id
+                break
             }
         }
 
 
+        /************************************************************************/
 
         binding.mainBtn.setOnClickListener {
-
             clickMedia?.start()
-
             //通过滑块的位置寻找到线和数字的位置
             val layoutParams = binding.headBtn.layoutParams as ConstraintLayout.LayoutParams
             val line = findViewById<ImageView>(layoutParams.startToStart)
             val num = findViewById<ImageView>(layoutParams.endToEnd)
+            val num_switch = binding.seekbar.progress
 
             if (isSwitchOff) {
                 binding.mainBtn.isSelected = true   //主按钮亮
@@ -102,9 +78,7 @@ class HomeActivity : AppCompatActivity() {
                 line.setImageResource(R.drawable.headline_on) //开着灯时，被选中的line白亮光
                 num.isSelected = true               //开着灯时，被选中的num亮
 
-                //打开闪光灯
-                turnOnFlashLight()
-
+                doAction(num_switch)
                 isSwitchOff = false
             } else {
                 binding.mainBtn.isSelected = false    //主按钮灭
@@ -116,6 +90,7 @@ class HomeActivity : AppCompatActivity() {
 
                 //关闭闪光灯
                 turnOffFlashLight()
+                timer?.cancel()
                 isSwitchOff = true
             }
         }
@@ -136,163 +111,78 @@ class HomeActivity : AppCompatActivity() {
             layoutParams.endToEnd = numId
             binding.headBtn.layoutParams = layoutParams
 
-            fun doAction(num_place : Int){
+            fun doAction(num_place: Int) {
 
                 GlobalScope.launch { // 在单独的协程中执行
                     when (num_place) {
                         0 -> {
-                            //11
                             repeat(Int.MAX_VALUE) {
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(200)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(200)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(600)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(600)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(600)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(600)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(600)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(600)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(600)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(200)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(200)
                                 turnOnFlashLight()
-                                binding.head.isSelected = true
                                 delay(200)
                                 turnOffFlashLight()
-                                binding.head.isSelected = false
                                 delay(1700)
 
                             }
                         }
 
                         1 -> {
-                                turnOnFlashLight()
-                                binding.head.isSelected = true
-
+                            turnOnFlashLight()
                         }
                         2 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(1000)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(1000)
-
-                            }
+                            turnOnTask1()
                         }
                         3 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(750)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(750)
-                                }
-
+                            turnOnTask2()
                         }
                         4 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(500)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(500)
-                                }
-
+                           turnOnTask3()
                         }
                         5 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(250)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(250)
-                                }
-
+                            turnOnTask4()
                         }
                         6 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(150)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(150)
-                                }
-
+                           turnOnTask5()
                         }
                         7 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(100)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(100)
-                                }
-
+                            turnOnTask6()
                         }
                         8 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(50)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(50)
-
-                            }
+                           turnOnTask7()
                         }
                         9 -> {
-                                repeat(Int.MAX_VALUE) {
-                                    turnOnFlashLight()
-                                    binding.head.isSelected = true
-                                    delay(10)
-                                    turnOffFlashLight()
-                                    binding.head.isSelected = false
-                                    delay(10)
-
-                            }
+                            turnOnTask8()
                         }
                     }
                 }
@@ -311,6 +201,7 @@ class HomeActivity : AppCompatActivity() {
             }
             binding.seekbar.progress = num_place
         }
+
 
         //再次封装使用方法
         fun clickListener(lineId: Int, numId: Int, num_place: Int) {
@@ -338,18 +229,39 @@ class HomeActivity : AppCompatActivity() {
         binding.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 when (progress) {
-                    0 -> { SelectState(R.id.line_sos, R.id.num_sos, 0) }
-                    1 -> { SelectState(R.id.line_0, R.id.num_0, 1) }
-                    2 -> { SelectState(R.id.line_1, R.id.num_1, 2) }
-                    3 -> { SelectState(R.id.line_2, R.id.num_2, 3) }
-                    4 -> { SelectState(R.id.line_3, R.id.num_3, 4) }
-                    5 -> { SelectState(R.id.line_4, R.id.num_4, 5) }
-                    6 -> { SelectState(R.id.line_5, R.id.num_5, 6) }
-                    7 -> { SelectState(R.id.line_6, R.id.num_6, 7) }
-                    8 -> { SelectState(R.id.line_7, R.id.num_7, 8) }
-                    9 -> { SelectState(R.id.line_8, R.id.num_8, 9) }
+                    0 -> {
+                        SelectState(R.id.line_sos, R.id.num_sos, 0)
+                    }
+                    1 -> {
+                        SelectState(R.id.line_0, R.id.num_0, 1)
+                    }
+                    2 -> {
+                        SelectState(R.id.line_1, R.id.num_1, 2)
+                    }
+                    3 -> {
+                        SelectState(R.id.line_2, R.id.num_2, 3)
+                    }
+                    4 -> {
+                        SelectState(R.id.line_3, R.id.num_3, 4)
+                    }
+                    5 -> {
+                        SelectState(R.id.line_4, R.id.num_4, 5)
+                    }
+                    6 -> {
+                        SelectState(R.id.line_5, R.id.num_5, 6)
+                    }
+                    7 -> {
+                        SelectState(R.id.line_6, R.id.num_6, 7)
+                    }
+                    8 -> {
+                        SelectState(R.id.line_7, R.id.num_7, 8)
+                    }
+                    9 -> {
+                        SelectState(R.id.line_8, R.id.num_8, 9)
+                    }
                 }
             }
+
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
@@ -359,6 +271,230 @@ class HomeActivity : AppCompatActivity() {
         binding.cardView.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    //开启闪光灯
+    fun turnOnFlashLight() {
+        try {
+            // 通过找到的后置摄像头ID，打开闪光灯
+            if (cameraId != null) {
+                cameraManager.setTorchMode(cameraId!!, true)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        binding.head.isSelected = true
+    }
+
+    //关闭闪光灯
+    fun turnOffFlashLight() {
+        try {
+            if (cameraId != null) {
+                cameraManager.setTorchMode(cameraId!!, false)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        binding.head.isSelected = false
+    }
+
+    var timer: Timer? = null
+
+    fun turnOnTask1() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 2000)
+
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 1000, 2000)
+    }
+
+    fun turnOnTask2() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 1500)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 750, 1500)
+    }
+
+    fun turnOnTask3() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 1000)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 500, 1000)
+    }
+
+    fun turnOnTask4() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 500)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 250, 500)
+    }
+
+    fun turnOnTask5() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 300)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 150, 300)
+    }
+
+    fun turnOnTask6() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 200)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 100, 200)
+    }
+
+    fun turnOnTask7() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 100)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 50, 100)
+    }
+
+    fun turnOnTask8() {
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 20)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 10, 20)
+    }
+    fun doAction(num_place: Int) {
+
+        GlobalScope.launch { // 在单独的协程中执行
+            when (num_place) {
+                0 -> {
+                    repeat(Int.MAX_VALUE) {
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(200)
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(200)
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(600)
+                        turnOnFlashLight()
+                        delay(600)
+                        turnOffFlashLight()
+                        delay(600)
+                        turnOnFlashLight()
+                        delay(600)
+                        turnOffFlashLight()
+                        delay(600)
+                        turnOnFlashLight()
+                        delay(600)
+                        turnOffFlashLight()
+                        delay(600)
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(200)
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(200)
+                        turnOnFlashLight()
+                        delay(200)
+                        turnOffFlashLight()
+                        delay(1700)
+
+                    }
+                }
+
+                1 -> {
+                    turnOnFlashLight()
+                }
+                2 -> {
+                    turnOnTask1()
+                }
+                3 -> {
+                    turnOnTask2()
+                }
+                4 -> {
+                    turnOnTask3()
+                }
+                5 -> {
+                    turnOnTask4()
+                }
+                6 -> {
+                    turnOnTask5()
+                }
+                7 -> {
+                    turnOnTask6()
+                }
+                8 -> {
+                    turnOnTask7()
+                }
+                9 -> {
+                    turnOnTask8()
+                }
+            }
         }
     }
 
