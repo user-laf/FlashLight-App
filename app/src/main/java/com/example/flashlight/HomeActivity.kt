@@ -8,8 +8,6 @@ import android.hardware.camera2.CameraManager
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -23,9 +21,9 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
-    lateinit var cameraManager: CameraManager
-    var cameraId: String? = null //定义变量用来存储后置摄像头ID
-    var isSwitchOff: Boolean = true
+    private lateinit var cameraManager: CameraManager
+    private lateinit var cameraId: String//定义变量用来存储后置摄像头ID
+    var isSwitchOff: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -278,9 +276,7 @@ class HomeActivity : AppCompatActivity() {
     fun turnOnFlashLight() {
         try {
             // 通过找到的后置摄像头ID，打开闪光灯
-            if (cameraId != null) {
-                cameraManager.setTorchMode(cameraId!!, true)
-            }
+            cameraManager.setTorchMode(cameraId, true)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -290,9 +286,7 @@ class HomeActivity : AppCompatActivity() {
     //关闭闪光灯
     fun turnOffFlashLight() {
         try {
-            if (cameraId != null) {
-                cameraManager.setTorchMode(cameraId!!, false)
-            }
+            cameraManager.setTorchMode(cameraId, false)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -301,7 +295,102 @@ class HomeActivity : AppCompatActivity() {
 
     var timer: Timer? = null
 
-    fun turnOnTask1() {
+    private fun turnOnTaskSos(){
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 0, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 200, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 400, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 600, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 800, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 1000, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 1600, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 2200, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 2800, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 3400, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 4000, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 4600, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 5200, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 5400, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 5600, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 5800, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOnFlashLight()
+            }
+        }, 6000, 7900)
+        timer?.schedule(object : TimerTask() {
+            override fun run() {
+                turnOffFlashLight()
+            }
+        }, 6200, 7900)
+    }
+
+    private fun turnOnTask1() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -317,7 +406,7 @@ class HomeActivity : AppCompatActivity() {
         }, 1000, 2000)
     }
 
-    fun turnOnTask2() {
+    private fun turnOnTask2() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -332,7 +421,7 @@ class HomeActivity : AppCompatActivity() {
         }, 750, 1500)
     }
 
-    fun turnOnTask3() {
+    private fun turnOnTask3() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -347,7 +436,7 @@ class HomeActivity : AppCompatActivity() {
         }, 500, 1000)
     }
 
-    fun turnOnTask4() {
+    private fun turnOnTask4() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -362,7 +451,7 @@ class HomeActivity : AppCompatActivity() {
         }, 250, 500)
     }
 
-    fun turnOnTask5() {
+    private fun turnOnTask5() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -377,7 +466,7 @@ class HomeActivity : AppCompatActivity() {
         }, 150, 300)
     }
 
-    fun turnOnTask6() {
+    private fun turnOnTask6() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -392,7 +481,7 @@ class HomeActivity : AppCompatActivity() {
         }, 100, 200)
     }
 
-    fun turnOnTask7() {
+    private fun turnOnTask7() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -407,7 +496,7 @@ class HomeActivity : AppCompatActivity() {
         }, 50, 100)
     }
 
-    fun turnOnTask8() {
+    private fun turnOnTask8() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -421,53 +510,16 @@ class HomeActivity : AppCompatActivity() {
             }
         }, 10, 20)
     }
-    fun doAction(num_place: Int) {
+    private fun doAction(num_place: Int) {
 
         GlobalScope.launch { // 在单独的协程中执行
             when (num_place) {
                 0 -> {
-                    repeat(Int.MAX_VALUE) {
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(200)
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(200)
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(600)
-                        turnOnFlashLight()
-                        delay(600)
-                        turnOffFlashLight()
-                        delay(600)
-                        turnOnFlashLight()
-                        delay(600)
-                        turnOffFlashLight()
-                        delay(600)
-                        turnOnFlashLight()
-                        delay(600)
-                        turnOffFlashLight()
-                        delay(600)
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(200)
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(200)
-                        turnOnFlashLight()
-                        delay(200)
-                        turnOffFlashLight()
-                        delay(1700)
-
-                    }
+                    turnOnTaskSos()
                 }
 
                 1 -> {
+                    timer?.cancel()
                     turnOnFlashLight()
                 }
                 2 -> {
