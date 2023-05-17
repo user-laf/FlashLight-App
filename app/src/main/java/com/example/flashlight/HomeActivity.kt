@@ -141,6 +141,7 @@ class HomeActivity : AppCompatActivity() {
                 GlobalScope.launch { // 在单独的协程中执行
                     when (num_place) {
                         0 -> {
+                            //11
                             repeat(Int.MAX_VALUE) {
                                 turnOnFlashLight()
                                 binding.head.isSelected = true
