@@ -10,33 +10,31 @@
         android:id="@+id/languageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:fontFamily="@font/assistantextrabold"
-        android:paddingStart="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/line"
-        android:layout_marginBottom="16dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
         android:id="@+id/select_language"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="16dp"
         android:src="@drawable/icon_language_tick"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/line"
         app:layout_constraintTop_toTopOf="@+id/languageName"
         app:layout_constraintBottom_toBottomOf="@+id/languageName"/>
 
     <View
         android:id="@+id/line"
-        android:layout_width="346dp"
-        android:layout_height="1dp"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="15dp"
         android:background="#1AFFFFFF"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/languageName"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,11 @@
     <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/buttons_ripple</item>
     </style>
-    
+
+    <style name="HomeSettingsBtnStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/assistantextrabold</item>
+        <item name="textAllCaps">false</item>
+    </style>
 
 
 </resources>

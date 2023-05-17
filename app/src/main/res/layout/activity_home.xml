@@ -45,44 +45,55 @@
         app:layout_constraintRight_toRightOf="parent"
         />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="117.5dp"
+
+    <Button
+        android:id="@+id/settings_btn"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginBottom="108dp"
-        app:cardBackgroundColor="#1C1C1E"
-        app:cardCornerRadius="18dp"
-        app:cardElevation="0dp"
-        app:cardUseCompatPadding="false"
-        android:clickable="true"
+        android:background="@drawable/setting_button"
+        android:drawableStart="@drawable/ic_general_setting"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:drawablePadding="5dp"
+        android:text="Settings"
+        android:textColor="@color/white"
+        android:textSize="16.8sp"
+        style="@style/HomeSettingsBtnStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/off_on"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="18.68dp"
-                android:layout_height="18.61dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="15.24dp"
-                app:srcCompat="@drawable/ic_general_setting" />
 
-            <TextView
-                android:layout_width="74.34dp"
-                android:layout_height="22dp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/assistantextrabold"
-                android:gravity="center"
-                android:text="Settings"
-                android:textColor="#FFFFFFFF"
-                android:textSize="16.8sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/settings_img"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_marginStart=""-->
+<!--                app:srcCompat="@drawable/ic_general_setting"-->
+<!--                android:elevation="10dp"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/settings_title"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/settings_title"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/main_btn"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/settings_title"-->
+<!--                app:layout_constraintHorizontal_chainStyle="packed"/>-->
 
+<!--            <TextView-->
+<!--                android:id="@+id/settings_title"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="-5dp"-->
+<!--                android:fontFamily="@font/assistantextrabold"-->
+<!--                android:text="Settings"-->
+<!--                android:textColor="#FFFFFFFF"-->
+<!--                android:textSize="16.8sp"-->
+<!--                android:elevation="10dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/off_on"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@id/settings_img"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/main_btn"/>-->
 
         <ImageView
             android:id="@+id/line_sos"

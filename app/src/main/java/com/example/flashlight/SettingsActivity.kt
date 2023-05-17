@@ -25,12 +25,12 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         }
 
         //点击Language 进入语言设置界面
-        binding.languageTitle.setOnClickListener {
+        binding.languageBtn.setOnClickListener {
             val intent = Intent(this, LanguageActivity::class.java)
             startActivity(intent)
         }
 
-        binding.removeSettings.setOnClickListener {
+        binding.removeBtn.setOnClickListener {
             // 在Activity代码中获取FragmentManager，然后调用beginTransaction()方法，创建一个新的Fragment事务
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()

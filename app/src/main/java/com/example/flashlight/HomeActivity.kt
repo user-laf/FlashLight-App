@@ -13,7 +13,6 @@ import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.flashlight.databinding.ActivityHomeBinding
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -35,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
         //创建 MediaPlayer 对象
         val clickMedia = MediaPlayer.create(this, R.raw.click1)
 
+        turnOnTask0()
         binding.mainBtn.isSelected = true   //主按钮亮
         binding.head.isSelected = true      //顶部光亮
         binding.seekbar.isSelected = true   //滑块亮
@@ -56,10 +56,8 @@ class HomeActivity : AppCompatActivity() {
                 break
             }
         }
-
-
         /************************************************************************/
-
+        //主开关点击事件
         binding.mainBtn.setOnClickListener {
             clickMedia?.start()
             //通过滑块的位置寻找到线和数字的位置
@@ -73,9 +71,10 @@ class HomeActivity : AppCompatActivity() {
                 binding.head.isSelected = true      //顶部光亮
                 binding.seekbar.isSelected = true   //滑块亮
                 binding.offOn.text = "ON"           //开关下方字体更换
-                line.setImageResource(R.drawable.headline_on) //开着灯时，被选中的line白亮光
-                num.isSelected = true               //开着灯时，被选中的num亮
+                line.setImageResource(R.drawable.headline_on) //开灯时，被选中的line白亮光
+                num.isSelected = true               //开灯时，被选中的num亮
 
+                //开灯时根据当前seekBar位置自动选择频率
                 doAction(num_switch)
                 isSwitchOff = false
             } else {
@@ -83,8 +82,8 @@ class HomeActivity : AppCompatActivity() {
                 binding.head.isSelected = false       //顶部光灭
                 binding.seekbar.isSelected = false    //滑块灭
                 binding.offOn.text = "OFF"            //开关下方字体更换
-                line.setImageResource(R.drawable.headline_off_selected)//关着灯时，被选中的line为白色
-                num.isSelected = false                //关着灯时，被选中的num不亮
+                line.setImageResource(R.drawable.headline_off_selected)//关灯时，被选中的line为白色
+                num.isSelected = false                //关着时，被选中的num不亮
 
                 //关闭闪光灯
                 turnOffFlashLight()
@@ -109,82 +108,6 @@ class HomeActivity : AppCompatActivity() {
             layoutParams.endToEnd = numId
             binding.headBtn.layoutParams = layoutParams
 
-            fun doAction(num_place: Int) {
-
-                GlobalScope.launch { // 在单独的协程中执行
-                    when (num_place) {
-                        0 -> {
-                            repeat(Int.MAX_VALUE) {
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(200)
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(200)
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(600)
-                                turnOnFlashLight()
-                                delay(600)
-                                turnOffFlashLight()
-                                delay(600)
-                                turnOnFlashLight()
-                                delay(600)
-                                turnOffFlashLight()
-                                delay(600)
-                                turnOnFlashLight()
-                                delay(600)
-                                turnOffFlashLight()
-                                delay(600)
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(200)
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(200)
-                                turnOnFlashLight()
-                                delay(200)
-                                turnOffFlashLight()
-                                delay(1700)
-
-                            }
-                        }
-
-                        1 -> {
-                            turnOnFlashLight()
-                        }
-                        2 -> {
-                            turnOnTask1()
-                        }
-                        3 -> {
-                            turnOnTask2()
-                        }
-                        4 -> {
-                           turnOnTask3()
-                        }
-                        5 -> {
-                            turnOnTask4()
-                        }
-                        6 -> {
-                           turnOnTask5()
-                        }
-                        7 -> {
-                            turnOnTask6()
-                        }
-                        8 -> {
-                           turnOnTask7()
-                        }
-                        9 -> {
-                            turnOnTask8()
-                        }
-                    }
-                }
-            }
 
             // 设置新选中的line和num样式
             if (isSwitchOff) {
@@ -266,7 +189,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-        binding.cardView.setOnClickListener {
+        binding.settingsBtn.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
@@ -390,6 +313,10 @@ class HomeActivity : AppCompatActivity() {
         }, 6200, 7900)
     }
 
+    private fun turnOnTask0() {
+        timer?.cancel()
+        turnOnFlashLight()
+    }
     private fun turnOnTask1() {
         timer?.cancel()
         timer = Timer()
@@ -510,17 +437,15 @@ class HomeActivity : AppCompatActivity() {
             }
         }, 10, 20)
     }
-    private fun doAction(num_place: Int) {
 
+    private fun doAction(num_place: Int) {
         GlobalScope.launch { // 在单独的协程中执行
             when (num_place) {
                 0 -> {
                     turnOnTaskSos()
                 }
-
                 1 -> {
-                    timer?.cancel()
-                    turnOnFlashLight()
+                    turnOnTask0()
                 }
                 2 -> {
                     turnOnTask1()
@@ -549,6 +474,4 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }
