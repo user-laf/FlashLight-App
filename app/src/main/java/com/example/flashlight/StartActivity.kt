@@ -1,13 +1,16 @@
 package com.example.flashlight
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.animation.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flashlight.databinding.ActivityStartBinding
+import java.util.*
 
 
 class StartActivity : AppCompatActivity() {
 
+    private lateinit var timer: Timer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
@@ -64,7 +67,7 @@ class StartActivity : AppCompatActivity() {
             binding.startBack.y
 
         )
-        translateAnimation3.duration=1000
+        translateAnimation3.duration=500
         val translateAnimation4 = TranslateAnimation(
             binding.startBack.x,
             binding.startBack.x+80.0f*density,
@@ -72,14 +75,32 @@ class StartActivity : AppCompatActivity() {
             binding.startBack.y
 
         )
-        translateAnimation4.duration=1000
-        translateAnimation4.startOffset = 1000
+        translateAnimation4.duration=500
+        translateAnimation4.startOffset = 500
         val AnimationSet3 = AnimationSet(true)
         AnimationSet3.fillAfter = true
         AnimationSet3.addAnimation(translateAnimation3)
         AnimationSet3.addAnimation(translateAnimation4)
         binding.startBack.startAnimation(AnimationSet3)
         binding.startFront.startAnimation(AnimationSet3)
+
+        // 创建定时器
+        timer = Timer()
+
+        // 延迟 2 秒启动 MainActivity
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                val intent = Intent(this@StartActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }, 1300)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        timer.cancel()
     }
 
 

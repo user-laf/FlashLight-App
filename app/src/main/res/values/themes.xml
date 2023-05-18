@@ -27,10 +27,6 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="switchStyle" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">#007Bff</item>
-        <item name="colorSwitchThumbNormal">#FFFFFF</item>
-    </style>
 
     <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/buttons_ripple</item>

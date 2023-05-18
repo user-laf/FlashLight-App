@@ -22,8 +22,8 @@ import java.util.*
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private var soundPool1: SoundPool=SoundPool.Builder().build()
-    private var soundPool2: SoundPool=SoundPool.Builder().build()
+    private var soundPool1: SoundPool = SoundPool.Builder().build()
+    private var soundPool2: SoundPool = SoundPool.Builder().build()
     private var soundId1: Int = 0
     private var soundId2: Int = 0
     private lateinit var vibrator: Vibrator
@@ -40,20 +40,6 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        turnOnTask0()
-        binding.mainBtn.isSelected = true   //主按钮亮
-        binding.head.isSelected = true      //顶部光亮
-        binding.seekbar.isSelected = true   //滑块亮
-        binding.line0.setImageResource(R.drawable.headline_on)
-        binding.num0.isSelected = true
-        binding.offOn.text = "ON"
-        isSwitchOff = false
-
-        soundId1 = soundPool1.load(this,R.raw.click1,1)
-        soundId2 = soundPool2.load(this,R.raw.light4,1)
-
-        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         //遍历摄像头ID
         for (id in cameraManager.cameraIdList) {
@@ -67,6 +53,29 @@ class HomeActivity : AppCompatActivity() {
                 break
             }
         }
+
+
+        try {
+            // 通过找到的后置摄像头ID，打开闪光灯
+            cameraManager.setTorchMode(cameraId, true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+        binding.mainBtn.isSelected = true   //主按钮亮
+        binding.head.isSelected = true      //顶部光亮
+        binding.seekbar.isSelected = true   //滑块亮
+        binding.line0.setImageResource(R.drawable.headline_on)
+        binding.num0.isSelected = true
+        binding.offOn.text = "ON"
+        isSwitchOff = false
+
+        soundId1 = soundPool1.load(this, R.raw.click1, 1)
+        soundId2 = soundPool2.load(this, R.raw.light4, 1)
+
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
         /************************************************************************/
         //主开关点击事件
         binding.mainBtn.setOnClickListener {
@@ -222,7 +231,7 @@ class HomeActivity : AppCompatActivity() {
         runOnUiThread {
             binding.head.isSelected = true
             soundPool2.play(soundId2, 0.5f, 0.5f, 1, 0, 1f)
-            }
+        }
     }
 
     //关闭闪光灯
@@ -239,7 +248,7 @@ class HomeActivity : AppCompatActivity() {
 
     var timer: Timer? = null
 
-    private fun turnOnTaskSos(){
+    private fun turnOnTaskSos() {
         timer?.cancel()
         timer = Timer()
         timer?.schedule(object : TimerTask() {
@@ -338,6 +347,7 @@ class HomeActivity : AppCompatActivity() {
         timer?.cancel()
         turnOnFlashLight()
     }
+
     private fun turnOnTask1() {
         timer?.cancel()
         timer = Timer()

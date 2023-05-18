@@ -81,9 +81,10 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:switchTextAppearance="@style/switchStyle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:track="@drawable/switch_track"
+                android:thumb="@drawable/switch_thumb"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/automatic_on_title"
@@ -124,8 +125,10 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:track="@drawable/switch_track"
+                android:thumb="@drawable/switch_thumb"
                 app:layout_constraintEnd_toEndOf="@+id/switch1"
                 app:layout_constraintTop_toTopOf="@+id/stay_on_when_away_title"
                 app:layout_constraintBottom_toBottomOf="@id/stay_on_when_away_summary" />
@@ -156,8 +159,10 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:track="@drawable/switch_track"
+                android:thumb="@drawable/switch_thumb"
                 app:layout_constraintEnd_toEndOf="@id/switch1"
                 app:layout_constraintTop_toTopOf="@+id/sound_effect_title"
                 app:layout_constraintBottom_toBottomOf="@id/sound_effect_title" />

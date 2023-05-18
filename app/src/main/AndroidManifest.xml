@@ -19,18 +19,15 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".StartActivity"
-            android:exported="false"
-            android:theme="@style/BackgroundTheme" />
-        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".LanguageActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".StartActivity"
+            android:exported="true"
+            android:theme="@style/BackgroundTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
