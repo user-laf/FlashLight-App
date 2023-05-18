@@ -1,11 +1,15 @@
 package com.example.flashlight
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.CompoundButton
+import android.widget.ImageView
 import androidx.preference.PreferenceManager
 import com.example.flashlight.databinding.ActivitySettingsBinding
 
@@ -30,17 +34,22 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
             startActivity(intent)
         }
 
+
+        val dialog = Dialog(this,R.style.DialogStyle)
+        dialog.setContentView(R.layout.fragment_remove_ads)
+        val dialogWindow = dialog.window
+        dialogWindow?.setDimAmount(0.5f)
+        dialogWindow?.setGravity(Gravity.BOTTOM)
+        val lp: WindowManager.LayoutParams = dialogWindow!!.attributes
+        lp.y = 20
+        dialogWindow.attributes = lp
+
         binding.removeBtn.setOnClickListener {
-            // 在Activity代码中获取FragmentManager，然后调用beginTransaction()方法，创建一个新的Fragment事务
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            // 使用add()方法将Fragment添加到父容器中
-            val myFragment = RemoveAdsFragment()
-            fragmentTransaction.add(R.id.fragment_container, myFragment)
-            // 将半透明View的可见性设置为VISIBLE，使其覆盖在Activity上
-           binding.backgroundView.visibility = View.VISIBLE
-            // 最后使用commit()方法提交事务，将Fragment添加到Activity中
-            fragmentTransaction.commit()
+            dialog.show()
+        }
+        val finishDialog = dialog.findViewById<ImageView>(R.id.ad_finish)
+        finishDialog.setOnClickListener {
+            dialog.dismiss()
         }
 
 

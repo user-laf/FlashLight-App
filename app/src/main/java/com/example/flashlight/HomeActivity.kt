@@ -1,38 +1,44 @@
 package com.example.flashlight
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
+import android.media.SoundPool
 import android.os.Bundle
+import android.os.Vibrator
 import android.widget.ImageView
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import com.example.flashlight.databinding.ActivityHomeBinding
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-
+    private var soundPool1: SoundPool=SoundPool.Builder().build()
+    private var soundPool2: SoundPool=SoundPool.Builder().build()
+    private var soundId1: Int = 0
+    private var soundId2: Int = 0
+    private lateinit var vibrator: Vibrator
     private lateinit var cameraManager: CameraManager
     private lateinit var cameraId: String//定义变量用来存储后置摄像头ID
     var isSwitchOff: Boolean = false
 
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //创建 MediaPlayer 对象
-        val clickMedia = MediaPlayer.create(this, R.raw.click1)
 
         turnOnTask0()
         binding.mainBtn.isSelected = true   //主按钮亮
@@ -42,6 +48,11 @@ class HomeActivity : AppCompatActivity() {
         binding.num0.isSelected = true
         binding.offOn.text = "ON"
         isSwitchOff = false
+
+        soundId1 = soundPool1.load(this,R.raw.click1,1)
+        soundId2 = soundPool2.load(this,R.raw.light4,1)
+
+        vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         //遍历摄像头ID
@@ -59,7 +70,11 @@ class HomeActivity : AppCompatActivity() {
         /************************************************************************/
         //主开关点击事件
         binding.mainBtn.setOnClickListener {
-            clickMedia?.start()
+            //震动
+            vibrator.vibrate(50)
+            //音效
+//            MediaPlayer.create(this, R.raw.click1).start()
+            soundPool1.play(soundId1, 0.5f, 0.5f, 1, 0, 1f)
             //通过滑块的位置寻找到线和数字的位置
             val layoutParams = binding.headBtn.layoutParams as ConstraintLayout.LayoutParams
             val line = findViewById<ImageView>(layoutParams.startToStart)
@@ -108,7 +123,7 @@ class HomeActivity : AppCompatActivity() {
             layoutParams.endToEnd = numId
             binding.headBtn.layoutParams = layoutParams
 
-
+            vibrator.vibrate(50)
             // 设置新选中的line和num样式
             if (isSwitchOff) {
                 //当关灯时，选中的线变为白色，数字无变化
@@ -195,6 +210,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     //开启闪光灯
     fun turnOnFlashLight() {
         try {
@@ -203,7 +219,10 @@ class HomeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        binding.head.isSelected = true
+        runOnUiThread {
+            binding.head.isSelected = true
+            soundPool2.play(soundId2, 0.5f, 0.5f, 1, 0, 1f)
+            }
     }
 
     //关闭闪光灯
@@ -213,7 +232,9 @@ class HomeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        binding.head.isSelected = false
+        runOnUiThread {
+            binding.head.isSelected = false
+        }
     }
 
     var timer: Timer? = null
@@ -439,7 +460,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun doAction(num_place: Int) {
-        GlobalScope.launch { // 在单独的协程中执行
+        lifecycleScope.launch { // 在单独的协程中执行
             when (num_place) {
                 0 -> {
                     turnOnTaskSos()
