@@ -4,6 +4,7 @@ package com.example.flashlight
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.media.MediaPlayer
@@ -15,13 +16,14 @@ import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import com.example.flashlight.databinding.ActivityHomeBinding
 import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    lateinit var binding: ActivityHomeBinding
     private var soundPool1: SoundPool = SoundPool.Builder().build()
     private var soundPool2: SoundPool = SoundPool.Builder().build()
     private var soundId1: Int = 0
@@ -30,12 +32,26 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var cameraManager: CameraManager
     private lateinit var cameraId: String//定义变量用来存储后置摄像头ID
     var isSwitchOff: Boolean = false
+    private lateinit var sharedPreferences: SharedPreferences
+    private var switch1: Boolean = false
+    private var switch3: Boolean = false
+
+
+    companion object {
+        private var instance: HomeActivity? = null
+
+        fun getInstance(): HomeActivity? {
+            return instance
+        }
+    }
 
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        // 保存当前 Activity 实例
+        instance = this
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,23 +70,30 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        switch1 = sharedPreferences.getBoolean("switch1",false)
+        if (switch1){
+            try {
+                // 通过找到的后置摄像头ID，打开闪光灯
+                cameraManager.setTorchMode(cameraId, true)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
-        try {
-            // 通过找到的后置摄像头ID，打开闪光灯
-            cameraManager.setTorchMode(cameraId, true)
-        } catch (e: Exception) {
-            e.printStackTrace()
+            binding.mainBtn.isSelected = true   //主按钮亮
+            binding.head.isSelected = true      //顶部光亮
+            binding.seekbar.isSelected = true   //滑块亮
+            binding.line0.setImageResource(R.drawable.headline_on)
+            binding.num0.isSelected = true
+            binding.offOn.text = "ON"
+            isSwitchOff = false
+
+        } else {
+            isSwitchOff = true
         }
 
 
-        binding.mainBtn.isSelected = true   //主按钮亮
-        binding.head.isSelected = true      //顶部光亮
-        binding.seekbar.isSelected = true   //滑块亮
-        binding.line0.setImageResource(R.drawable.headline_on)
-        binding.num0.isSelected = true
-        binding.offOn.text = "ON"
-        isSwitchOff = false
-
+        //加载音效
         soundId1 = soundPool1.load(this, R.raw.click1, 1)
         soundId2 = soundPool2.load(this, R.raw.light4, 1)
 
@@ -82,8 +105,10 @@ class HomeActivity : AppCompatActivity() {
             //震动
             vibrator.vibrate(50)
             //音效
-//            MediaPlayer.create(this, R.raw.click1).start()
-            soundPool1.play(soundId1, 0.5f, 0.5f, 1, 0, 1f)
+            switch3 = sharedPreferences.getBoolean("switch3",false)
+            if(switch3){
+                soundPool1.play(soundId1, 0.5f, 0.5f, 1, 0, 1f)
+            }
             //通过滑块的位置寻找到线和数字的位置
             val layoutParams = binding.headBtn.layoutParams as ConstraintLayout.LayoutParams
             val line = findViewById<ImageView>(layoutParams.startToStart)
@@ -118,7 +143,7 @@ class HomeActivity : AppCompatActivity() {
 
         /*********************************************************/
         //封装点击事件
-        fun SelectState(lineId: Int, numId: Int, num_place: Int) {
+        fun selectState(lineId: Int, numId: Int, num_place: Int) {
             val layoutParams = binding.headBtn.layoutParams as ConstraintLayout.LayoutParams
             val line = findViewById<ImageView>(layoutParams.startToStart)
             val num = findViewById<ImageView>(layoutParams.endToEnd)
@@ -151,11 +176,11 @@ class HomeActivity : AppCompatActivity() {
         //再次封装使用方法
         fun clickListener(lineId: Int, numId: Int, num_place: Int) {
             findViewById<ImageView>(numId).setOnClickListener {
-                SelectState(lineId, numId, num_place)
+                selectState(lineId, numId, num_place)
             }
 
             findViewById<ImageView>(lineId).setOnClickListener {
-                SelectState(lineId, numId, num_place)
+                selectState(lineId, numId, num_place)
             }
 
         }
@@ -175,34 +200,34 @@ class HomeActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 when (progress) {
                     0 -> {
-                        SelectState(R.id.line_sos, R.id.num_sos, 0)
+                        selectState(R.id.line_sos, R.id.num_sos, 0)
                     }
                     1 -> {
-                        SelectState(R.id.line_0, R.id.num_0, 1)
+                        selectState(R.id.line_0, R.id.num_0, 1)
                     }
                     2 -> {
-                        SelectState(R.id.line_1, R.id.num_1, 2)
+                        selectState(R.id.line_1, R.id.num_1, 2)
                     }
                     3 -> {
-                        SelectState(R.id.line_2, R.id.num_2, 3)
+                        selectState(R.id.line_2, R.id.num_2, 3)
                     }
                     4 -> {
-                        SelectState(R.id.line_3, R.id.num_3, 4)
+                        selectState(R.id.line_3, R.id.num_3, 4)
                     }
                     5 -> {
-                        SelectState(R.id.line_4, R.id.num_4, 5)
+                        selectState(R.id.line_4, R.id.num_4, 5)
                     }
                     6 -> {
-                        SelectState(R.id.line_5, R.id.num_5, 6)
+                        selectState(R.id.line_5, R.id.num_5, 6)
                     }
                     7 -> {
-                        SelectState(R.id.line_6, R.id.num_6, 7)
+                        selectState(R.id.line_6, R.id.num_6, 7)
                     }
                     8 -> {
-                        SelectState(R.id.line_7, R.id.num_7, 8)
+                        selectState(R.id.line_7, R.id.num_7, 8)
                     }
                     9 -> {
-                        SelectState(R.id.line_8, R.id.num_8, 9)
+                        selectState(R.id.line_8, R.id.num_8, 9)
                     }
                 }
             }
@@ -230,7 +255,10 @@ class HomeActivity : AppCompatActivity() {
         }
         runOnUiThread {
             binding.head.isSelected = true
-            soundPool2.play(soundId2, 0.5f, 0.5f, 1, 0, 1f)
+            switch3 = sharedPreferences.getBoolean("switch3",false)
+            if (switch3) {
+                soundPool2.play(soundId2, 0.5f, 0.5f, 1, 0, 1f)
+            }
         }
     }
 
@@ -504,5 +532,12 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // 清空保存的 Activity 实例
+        instance = null
     }
 }
