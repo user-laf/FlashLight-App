@@ -267,15 +267,15 @@
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-13dp"
+        android:layout_height="100dp"
+        android:paddingTop="70dp"
         android:max="9"
         android:progress="1"
         android:progressDrawable="@android:color/transparent"
         android:thumb="@drawable/select_head_seekbar_button"
         app:layout_constraintStart_toStartOf="@id/num_sos"
         app:layout_constraintEnd_toEndOf="@id/num_8"
-        app:layout_constraintTop_toBottomOf="@id/line_sos" />
+        app:layout_constraintTop_toTopOf="@id/num_sos" />
 
 
 
