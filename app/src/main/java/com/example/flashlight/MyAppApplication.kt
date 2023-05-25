@@ -2,7 +2,9 @@ package com.example.flashlight
 
 import android.app.Activity
 import android.app.Application
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -14,10 +16,24 @@ import androidx.preference.PreferenceManager
 class MyApplication : Application() {
 
     private lateinit var  sharedPreferences : SharedPreferences
+    private lateinit var cameraId: String
+    private lateinit var cameraManager:CameraManager
 
     override fun onCreate() {
         super.onCreate()
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        for (id in cameraManager.cameraIdList) {
+            //获取摄像头的特性对象
+            val characteristics = cameraManager.getCameraCharacteristics(id)
+            //获取摄像头的朝向，前置还是后置
+            val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
+            //如果是后置摄像头，将摄像头ID存储到cameraID，退出遍历
+            if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
+                cameraId = id
+                break
+            }
+        }
         registerActivityLifecycleCallbacks(AppLifecycleCallbacks())
     }
 
@@ -25,7 +41,6 @@ class MyApplication : Application() {
 
 
         private var count = 0
-        private lateinit var cameraId: String//定义变量用来存储后置摄像头ID
 
         override fun onActivityCreated(p0: Activity, p1: Bundle?) {
 
@@ -46,18 +61,6 @@ class MyApplication : Application() {
             if (count == 0) {
                 val switch2 = sharedPreferences.getBoolean("switch2", false)
                 if (!switch2) {
-                    val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-                    for (id in cameraManager.cameraIdList) {
-                        //获取摄像头的特性对象
-                        val characteristics = cameraManager.getCameraCharacteristics(id)
-                        //获取摄像头的朝向，前置还是后置
-                        val lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING)
-                        //如果是后置摄像头，将摄像头ID存储到cameraID，退出遍历
-                        if (lensFacing != null && lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
-                            cameraId = id
-                            break
-                        }
-                    }
                     try {
                         // 通过找到的后置摄像头ID，打开闪光灯
                         cameraManager.setTorchMode(cameraId, false)
@@ -86,6 +89,11 @@ class MyApplication : Application() {
         override fun onActivityDestroyed(p0: Activity) {
         }
 
+
+
     }
+
+
+
 }
 

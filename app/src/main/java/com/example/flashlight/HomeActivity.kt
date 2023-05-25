@@ -4,6 +4,7 @@ package com.example.flashlight
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
@@ -52,6 +53,11 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         // 保存当前 Activity 实例
         instance = this
+
+        val lockScreenReceiver = LockScreenReceiver()
+        val filter = IntentFilter(Intent.ACTION_SCREEN_OFF)
+        registerReceiver(lockScreenReceiver, filter)
+
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -536,8 +542,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        // 清空保存的 Activity 实例
+        //取消注册广播
+        val lockScreenReceiver = LockScreenReceiver()
+        unregisterReceiver(lockScreenReceiver)
         instance = null
     }
 }

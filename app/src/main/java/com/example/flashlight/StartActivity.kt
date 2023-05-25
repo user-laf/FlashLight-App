@@ -60,34 +60,38 @@ class StartActivity : AppCompatActivity() {
         binding.title2.startAnimation(animationSet2)
         /**--------------------------------------**/
 
+        //图片左移动画
         val translateAnimation3 = TranslateAnimation(
             binding.startBack.x,
             binding.startBack.x-80.0f*density,
             binding.startBack.y,
             binding.startBack.y
 
+
+
         )
         translateAnimation3.duration=500
+
+        //图片右移动画
         val translateAnimation4 = TranslateAnimation(
             binding.startBack.x,
             binding.startBack.x+80.0f*density,
             binding.startBack.y,
             binding.startBack.y
-
         )
+
         translateAnimation4.duration=500
         translateAnimation4.startOffset = 500
-        val AnimationSet3 = AnimationSet(true)
-        AnimationSet3.fillAfter = true
-        AnimationSet3.addAnimation(translateAnimation3)
-        AnimationSet3.addAnimation(translateAnimation4)
-        binding.startBack.startAnimation(AnimationSet3)
-        binding.startFront.startAnimation(AnimationSet3)
+        val animationSet3 = AnimationSet(true)
+        animationSet3.fillAfter = true
+        animationSet3.addAnimation(translateAnimation3)
+        animationSet3.addAnimation(translateAnimation4)
+        binding.startBack.startAnimation(animationSet3)
+        binding.startFront.startAnimation(animationSet3)
 
         // 创建定时器
         timer = Timer()
-
-        // 延迟 2 秒启动 MainActivity
+        // 延迟 2 秒启动 HomeActivity
         timer.schedule(object : TimerTask() {
             override fun run() {
                 val intent = Intent(this@StartActivity, HomeActivity::class.java)
@@ -99,7 +103,6 @@ class StartActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         timer.cancel()
     }
 
