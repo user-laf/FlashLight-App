@@ -73,12 +73,9 @@ class MyApplication : Application() {
                     homeActivity?.binding?.head?.isSelected = false      //顶部光亮
                     homeActivity?.binding?.seekbar?.isSelected = false   //滑块亮
                     homeActivity?.binding?.offOn?.text = "OFF"           //开关下方字体更换
-                    val layoutParams =
-                        homeActivity?.binding?.headBtn?.layoutParams as ConstraintLayout.LayoutParams
-                    homeActivity.findViewById<ImageView>(layoutParams.startToStart)
-                        ?.setImageResource(R.drawable.headline_off_selected)
-                    homeActivity.findViewById<ImageView>(layoutParams.endToEnd)?.isSelected = false
-                    homeActivity.isSwitchOff = true
+                    homeActivity?.currentLine?.setImageResource(R.drawable.headline_off_selected)
+                    homeActivity?.currentNum?.isSelected = false
+                    homeActivity?.isSwitchOff = true
                 }
             }
         }

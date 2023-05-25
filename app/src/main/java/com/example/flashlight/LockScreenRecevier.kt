@@ -23,15 +23,12 @@ class LockScreenReceiver : BroadcastReceiver() {
         }
         val homeActivity = HomeActivity.getInstance()
         homeActivity?.timer?.cancel()
-        homeActivity?.binding?.mainBtn?.isSelected = false   //主按钮亮
-        homeActivity?.binding?.head?.isSelected = false      //顶部光亮
-        homeActivity?.binding?.seekbar?.isSelected = false   //滑块亮
-        homeActivity?.binding?.offOn?.text = "OFF"           //开关下方字体更换
-        val layoutParams =
-            homeActivity?.binding?.headBtn?.layoutParams as ConstraintLayout.LayoutParams
-        homeActivity.findViewById<ImageView>(layoutParams.startToStart)
-            ?.setImageResource(R.drawable.headline_off_selected)
-        homeActivity.findViewById<ImageView>(layoutParams.endToEnd)?.isSelected = false
-        homeActivity.isSwitchOff = true
+        homeActivity?.binding?.mainBtn?.isSelected = false
+        homeActivity?.binding?.head?.isSelected = false
+        homeActivity?.binding?.seekbar?.isSelected = false
+        homeActivity?.binding?.offOn?.text = "OFF"
+        homeActivity?.currentLine?.setImageResource(R.drawable.headline_off_selected)
+        homeActivity?.currentNum?.isSelected = false
+        homeActivity?.isSwitchOff = true
     }
 }
