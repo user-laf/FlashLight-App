@@ -100,7 +100,7 @@ class StartActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        }, 1300)
+        }, 1000)
     }
 
     override fun onDestroy() {

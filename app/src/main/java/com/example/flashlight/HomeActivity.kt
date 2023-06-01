@@ -46,7 +46,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -58,8 +57,6 @@ class HomeActivity : AppCompatActivity() {
         currentNum = binding.num0
         // 保存当前 Activity 实例
         instanceRef = WeakReference(this)
-
-        // 注册锁屏广播接收器
 
 
         // 初始化摄像头管理器和查找摄像头ID
