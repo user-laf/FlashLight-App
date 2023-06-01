@@ -18,14 +18,13 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-
         val binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.icReturn.setOnClickListener {
             finish()
         }
+
 
         //点击Language 进入语言设置界面
         binding.languageBtn.setOnClickListener {
@@ -49,6 +48,23 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         val finishDialog = dialog.findViewById<ImageView>(R.id.ad_finish)
         finishDialog.setOnClickListener {
             dialog.dismiss()
+        }
+
+        //分享按钮
+        binding.shareBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            // 设置分享的数据类型
+            intent.type = "text/plain"
+            // 设置分享的标题
+            intent.putExtra(Intent.EXTRA_TITLE, "分享手电筒")
+            // 设置分享的内容
+            intent.putExtra(Intent.EXTRA_TEXT, "这是我的手电筒")
+            startActivity(Intent.createChooser(intent, "分享方式"))
+        }
+
+        binding.feedbackBtn.setOnClickListener {
+            val intent = Intent(this, FeedBackActivity::class.java)
+            startActivity(intent)
         }
 
 

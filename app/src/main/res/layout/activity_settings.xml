@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="57dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ic_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/assistantextrabold"/>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+<ScrollView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:background="@color/black"
+    android:scrollbars="vertical"
+    app:layout_constraintTop_toBottomOf="@+id/toolbar"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -12,47 +49,14 @@
     android:background="@color/black"
     tools:context=".SettingsActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:background="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ic_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:src="@drawable/baseline_arrow_back_24"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/assistantextrabold"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/group1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/rounded_bg">
+            >
 
 
             <TextView
@@ -65,6 +69,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/assistantextrabold"
+                android:elevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -76,19 +81,23 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:fontFamily="@font/assistantregular"
+                android:elevation="10dp"
                 app:layout_constraintStart_toStartOf="@+id/automatic_on_title"
                 app:layout_constraintTop_toBottomOf="@+id/automatic_on_title"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/privacy_bg"
                 app:track="@drawable/switch_track"
                 android:thumb="@drawable/switch_thumb"
-                android:layout_marginEnd="30dp"
+                android:paddingEnd="30dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/automatic_on_title"
-                app:layout_constraintBottom_toBottomOf="@id/automatic_on_summary" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/line1" />
+
 
             <View
                 android:id="@+id/line1"
@@ -96,6 +105,8 @@
                 android:layout_height="0.5dp"
                 android:background="#1AFFFFFF"
                 android:layout_marginTop="17.5dp"
+                android:layout_marginEnd="30dp"
+                android:elevation="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/automatic_on_summary"
                 app:layout_constraintStart_toStartOf="@id/automatic_on_title"
                 app:layout_constraintEnd_toEndOf="@id/switch1"/>
@@ -108,6 +119,7 @@
                 android:text="Stay on when away"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                android:elevation="10dp"
                 android:fontFamily="@font/assistantextrabold"
                 app:layout_constraintStart_toStartOf="@+id/automatic_on_title"
                 app:layout_constraintTop_toBottomOf="@+id/line1"/>
@@ -119,19 +131,23 @@
                 android:text="Stay on after locking the screen or leave the app"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                android:elevation="10dp"
                 android:fontFamily="@font/assistantregular"
                 app:layout_constraintStart_toStartOf="@+id/automatic_on_title"
                 app:layout_constraintTop_toBottomOf="@+id/stay_on_when_away_title"/>
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/share_bg"
+                android:paddingEnd="30dp"
                 app:track="@drawable/switch_track"
                 android:thumb="@drawable/switch_thumb"
-                app:layout_constraintEnd_toEndOf="@+id/switch1"
-                app:layout_constraintTop_toTopOf="@+id/stay_on_when_away_title"
-                app:layout_constraintBottom_toBottomOf="@id/stay_on_when_away_summary" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/line1"
+                app:layout_constraintBottom_toBottomOf="@id/line2" />
 
             <View
                 android:id="@+id/line2"
@@ -139,6 +155,8 @@
                 android:layout_height="0.5dp"
                 android:background="#1AFFFFFF"
                 android:layout_marginTop="17.5dp"
+                android:elevation="10dp"
+                android:layout_marginEnd="30dp"
                 app:layout_constraintTop_toBottomOf="@+id/stay_on_when_away_summary"
                 app:layout_constraintStart_toStartOf="@id/automatic_on_title"
                 app:layout_constraintEnd_toEndOf="@id/switch1"/>
@@ -152,6 +170,7 @@
                 android:text="Sound effect"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                android:elevation="10dp"
                 android:fontFamily="@font/assistantextrabold"
                 app:layout_constraintStart_toStartOf="@+id/automatic_on_title"
                 app:layout_constraintTop_toBottomOf="@+id/line2"
@@ -159,13 +178,16 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/share_bg"
                 app:track="@drawable/switch_track"
                 android:thumb="@drawable/switch_thumb"
-                app:layout_constraintEnd_toEndOf="@id/switch1"
-                app:layout_constraintTop_toTopOf="@+id/sound_effect_title"
-                app:layout_constraintBottom_toBottomOf="@id/sound_effect_title" />
+                android:paddingEnd="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/line2"
+                app:layout_constraintBottom_toBottomOf="@id/line5" />
 
             <View
                 android:id="@+id/line5"
@@ -173,6 +195,7 @@
                 android:layout_height="0.5dp"
                 android:background="#1AFFFFFF"
                 android:layout_marginTop="17.5dp"
+                android:layout_marginEnd="30dp"
                 android:elevation="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/sound_effect_title"
                 app:layout_constraintStart_toStartOf="@id/automatic_on_title"
@@ -202,6 +225,7 @@
                 app:layout_constraintStart_toStartOf="@+id/automatic_on_title"
                 app:layout_constraintTop_toBottomOf="@+id/line5"
                 app:layout_constraintBottom_toBottomOf="@id/group1"/>
+
 
 
 
@@ -394,7 +418,6 @@
                 android:id="@+id/feedback_go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/ic_general_chevron"
                 android:elevation="10dp"
@@ -405,6 +428,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -416,21 +440,11 @@
             app:layout_constraintStart_toStartOf="@id/group3"
             app:layout_constraintEnd_toEndOf="@id/group3"/>
 
-    <View
-        android:id="@+id/background_view"
-        android:layout_width="match_parent"
-        android:layout_height="700dp"
-        android:background="#80000000"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
 </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

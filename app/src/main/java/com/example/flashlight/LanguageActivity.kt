@@ -12,12 +12,11 @@ class LanguageActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_language)
-
         val binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initLanguages()
+
 
         binding.languageRecyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = LanguageAdapter(languageList)
@@ -38,7 +37,6 @@ class LanguageActivity : AppCompatActivity(){
         languageList.add("简体中文")
         languageList.add("Français")
         languageList.add("Español")
-        languageList.add("Italiano")
         languageList.add("Italiano")
         languageList.add("한국어")
     }

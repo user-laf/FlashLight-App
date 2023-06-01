@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import com.example.flashlight.databinding.ActivityHomeBinding
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -28,20 +29,19 @@ class HomeActivity : AppCompatActivity() {
     private var soundId1: Int = 0
     private var soundId2: Int = 0
     private lateinit var vibrator: Vibrator
-    private lateinit var cameraManager: CameraManager
-    private lateinit var cameraId: String//定义变量用来存储后置摄像头ID
+    lateinit var cameraManager: CameraManager
+    lateinit var cameraId: String//定义变量用来存储后置摄像头ID
     var isSwitchOff: Boolean = false
-    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
 
     lateinit var currentLine: ImageView
     lateinit var currentNum: ImageView
 
 
     companion object {
-        private var instance: HomeActivity? = null
-
+        private var instanceRef: WeakReference<HomeActivity>? = null
         fun getInstance(): HomeActivity? {
-            return instance
+            return instanceRef?.get()
         }
     }
 
@@ -57,12 +57,9 @@ class HomeActivity : AppCompatActivity() {
         currentLine = binding.line0
         currentNum = binding.num0
         // 保存当前 Activity 实例
-        instance = this
+        instanceRef = WeakReference(this)
 
         // 注册锁屏广播接收器
-        val lockScreenReceiver = LockScreenReceiver()
-        val filter = IntentFilter(Intent.ACTION_SCREEN_OFF)
-        registerReceiver(lockScreenReceiver, filter)
 
 
         // 初始化摄像头管理器和查找摄像头ID
@@ -80,9 +77,10 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        val switch1 = sharedPreferences.getBoolean("switch1", false)
 
         //如果选择了自动开启则打开闪光灯
-        if (sharedPreferences.getBoolean("switch1", false)) {
+        if (switch1) {
             try {
                 cameraManager.setTorchMode(cameraId, true)
             } catch (e: Exception) {
@@ -132,14 +130,13 @@ class HomeActivity : AppCompatActivity() {
         /**
          * 封装点击事件
          *
-         * 点击其他挡位后，需要先关闭当前挡位的光效，然后点亮新点击的挡位
-         * 设置一个透明的view当作标记，这个标记始终约束在一组num和line的中间，起始位置在num_0和line_0中间，
-         * 在点击其他挡位后先通过标记找到当前点亮的num和line,将他们关闭，
-         * 然后通过点击传入的参数将标记约束到新的挡位，并将新的挡位点亮
-         * 在操作主按钮开关时，也是通过这个标记找到当前的num和line
+         * 点击其他挡位后，先把currentLine和currentNum关闭，
+         * 然后记录新的currentLine和currentNum
+         * 最后根据开关状态设置currentLine和currentNum的样式
+         * 如果是开灯，则根据seekbar的progress设置相应的频率
          *
          */
-        fun selectState(lineId: Int, numId: Int, num_place: Int) {
+        fun selectState(lineId: Int, numId: Int) {
             //点击震动
             vibrator.vibrate(50)
             // 点击其他line和num后，先将当前的选中状态取消
@@ -156,10 +153,9 @@ class HomeActivity : AppCompatActivity() {
                 //当开灯时，选中的线变为白亮色，数字变亮，并且根据挡位执行相应的频率
                 currentLine.setImageResource(R.drawable.headline_on)
                 currentNum.isSelected = true
-                doAction(num_place)
+                doAction(binding.seekbar.progress)
 
             }
-            binding.seekbar.progress = num_place
         }
 
         /**
@@ -168,16 +164,16 @@ class HomeActivity : AppCompatActivity() {
         binding.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 when (progress) {
-                    0 -> selectState(R.id.line_sos, R.id.num_sos, 0)
-                    1 -> selectState(R.id.line_0, R.id.num_0, 1)
-                    2 -> selectState(R.id.line_1, R.id.num_1, 2)
-                    3 -> selectState(R.id.line_2, R.id.num_2, 3)
-                    4 -> selectState(R.id.line_3, R.id.num_3, 4)
-                    5 -> selectState(R.id.line_4, R.id.num_4, 5)
-                    6 -> selectState(R.id.line_5, R.id.num_5, 6)
-                    7 -> selectState(R.id.line_6, R.id.num_6, 7)
-                    8 -> selectState(R.id.line_7, R.id.num_7, 8)
-                    9 -> selectState(R.id.line_8, R.id.num_8, 9)
+                    0 -> selectState(R.id.line_sos, R.id.num_sos)
+                    1 -> selectState(R.id.line_0, R.id.num_0)
+                    2 -> selectState(R.id.line_1, R.id.num_1)
+                    3 -> selectState(R.id.line_2, R.id.num_2)
+                    4 -> selectState(R.id.line_3, R.id.num_3)
+                    5 -> selectState(R.id.line_4, R.id.num_4)
+                    6 -> selectState(R.id.line_5, R.id.num_5)
+                    7 -> selectState(R.id.line_6, R.id.num_6)
+                    8 -> selectState(R.id.line_7, R.id.num_7)
+                    9 -> selectState(R.id.line_8, R.id.num_8)
                 }
             }
 
@@ -190,6 +186,29 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        if (!sharedPreferences.getBoolean("switch2", false)){
+//            if (!isSwitchOff) {
+//                lightOff()
+//                currentLine.setImageResource(R.drawable.headline_off_selected)//关灯时，被选中的line为白色
+//                currentNum.isSelected = false                //关着时，被选中的num不亮
+//                //关闭闪光灯
+//                turnOffFlashLight()
+//                timer?.cancel()
+//            }
+//        }
+//    }
+
+//    override fun onStart() {
+//        super.onStart()
+//        if (!isSwitchOff){
+//            doAction(binding.seekbar.progress)
+//        }
+//    }
+
+
 
     //开启闪光灯
     fun turnOnFlashLight() {
@@ -249,6 +268,7 @@ class HomeActivity : AppCompatActivity() {
     private fun turnOnTask0() {
         timer?.cancel()
         turnOnFlashLight()
+
     }
 
     private fun turnOnTask(offDelay: Long, period: Long) {
@@ -287,27 +307,33 @@ class HomeActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         //取消注册广播
-        val lockScreenReceiver = LockScreenReceiver()
-        unregisterReceiver(lockScreenReceiver)
-        instance = null
+
+        instanceRef?.clear()
     }
 
-    private fun lightOn() {
-        binding.mainBtn.isSelected = true   //主按钮亮
-        binding.head.isSelected = true      //顶部光亮
-        binding.seekbar.isSelected = true   //滑块亮
-        binding.offOn.text = "ON"           //开关下方字体更换
+    fun lightOn() {
+        binding.apply {
+            mainBtn.isSelected = true   //主按钮亮
+            head.isSelected = true      //顶部光亮
+            seekbar.isSelected = true   //滑块亮
+            offOn.text = "ON"           //开关下方字体更换
+        }
         isSwitchOff = false
     }
 
-    private fun lightOff() {
-        binding.mainBtn.isSelected = false   //主按钮灭
-        binding.head.isSelected = false      //顶部光灭
-        binding.seekbar.isSelected = false   //滑块灭
-        binding.offOn.text = "OFF"           //开关下方字体更换
+    fun lightOff() {
+        binding.apply {
+            mainBtn.isSelected = false   //主按钮灭
+            head.isSelected = false      //顶部光灭
+            seekbar.isSelected = false   //滑块灭
+            offOn.text = "OFF"           //开关下方字体更换
+        }
         isSwitchOff = true
     }
+
+
 }
+
 
 /**
  * 下面这些是为了实现点击任何挡位都可以换挡，将每一个num和line都设置了点击事件
