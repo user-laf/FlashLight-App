@@ -71,7 +71,7 @@ class StartActivity : AppCompatActivity() {
             binding.startBack.y,
             binding.startBack.y
         )
-        translateAnimation3.duration=500
+        translateAnimation3.duration=1000
 
         //图片右移动画
         val translateAnimation4 = TranslateAnimation(
@@ -80,8 +80,8 @@ class StartActivity : AppCompatActivity() {
             binding.startBack.y,
             binding.startBack.y
         )
-        translateAnimation4.duration=500
-        translateAnimation4.startOffset = 500
+        translateAnimation4.duration=1000
+        translateAnimation4.startOffset = 1000
 
         AnimationSet(true).apply {
             fillAfter = true
@@ -100,7 +100,7 @@ class StartActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        }, 1000)
+        }, 2000)
     }
 
     override fun onDestroy() {

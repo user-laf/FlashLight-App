@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        val switch1 = sharedPreferences.getBoolean("switch1", false)
+        val switch1 = sharedPreferences.getBoolean("switch1",true)
 
         //如果选择了自动开启则打开闪光灯
         if (switch1) {
@@ -130,7 +130,7 @@ class HomeActivity : AppCompatActivity() {
          * 点击其他挡位后，先把currentLine和currentNum关闭，
          * 然后记录新的currentLine和currentNum
          * 最后根据开关状态设置currentLine和currentNum的样式
-         * 如果是开灯，则根据seekbar的progress设置相应的频率
+         * 如果是开灯，则根据seekbar的progress开启相应的频率
          *
          */
         fun selectState(lineId: Int, numId: Int) {
@@ -156,7 +156,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         /**
-         * seekbar点击事件，seekbar的长度正好对应10个挡位，每次切换直接结合selectState()传入固定参数实现换挡
+         * seekbar点击事件，seekbar的长度对应10个挡位，每次切换直接结合selectState()传入固定参数实现换挡
          */
         binding.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {

@@ -26,7 +26,7 @@ class LanguageAdapter(val languageList: List<String>, val sharedPrefs: SharedPre
             }
 
         init {
-            // 点击语言名称时显示或隐藏 selectLanguage
+            // 点击语言时显示或隐藏 selectLanguage
             itemView.setOnClickListener {
                 selectedPosition = adapterPosition
                 notifyDataSetChanged() // 刷新列表

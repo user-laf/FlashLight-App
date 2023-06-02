@@ -32,8 +32,9 @@ class MyApplication : Application() {
         override fun onActivityStopped(p0: Activity) {
             count--
             val homeActivity = HomeActivity.getInstance()
+            if  (homeActivity!=null){
             if (count == 0) {
-                    if (!homeActivity!!.sharedPreferences.getBoolean("switch2", false)){
+                    if (!homeActivity.sharedPreferences.getBoolean("switch2", false)){
                         if (!homeActivity.isSwitchOff) {
                             homeActivity.lightOff()
                             homeActivity.currentLine.setImageResource(R.drawable.headline_off_selected)//关灯时，被选中的line为白色
@@ -43,8 +44,8 @@ class MyApplication : Application() {
                             homeActivity.timer?.cancel()
                         }
                     }
-
             }
+        }
         }
 
         override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) {

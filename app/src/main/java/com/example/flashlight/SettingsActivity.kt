@@ -21,6 +21,17 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         val binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        //通过键值对获取开关的布尔值
+        binding.switch1.isChecked = sharedPreferences.getBoolean("switch1", true)
+        binding.switch2.isChecked = sharedPreferences.getBoolean("switch2", true)
+        binding.switch3.isChecked = sharedPreferences.getBoolean("switch3", true)
+
+        binding.switch1.setOnCheckedChangeListener(this)
+        binding.switch2.setOnCheckedChangeListener(this)
+        binding.switch3.setOnCheckedChangeListener(this)
+
         binding.icReturn.setOnClickListener {
             finish()
         }
@@ -68,17 +79,6 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         }
 
 
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-
-        //通过键值对获取开关的布尔值
-        binding.switch1.isChecked = sharedPreferences.getBoolean("switch1", false)
-        binding.switch2.isChecked = sharedPreferences.getBoolean("switch2", false)
-        binding.switch3.isChecked = sharedPreferences.getBoolean("switch3", false)
-
-        binding.switch1.setOnCheckedChangeListener(this)
-        binding.switch2.setOnCheckedChangeListener(this)
-        binding.switch3.setOnCheckedChangeListener(this)
 
     }
 

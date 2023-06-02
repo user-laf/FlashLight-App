@@ -76,8 +76,7 @@
             android:layout_marginTop="118dp"
             android:src="@drawable/headline_off_none"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:clickable="true"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/line_0"
@@ -86,8 +85,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_sos"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_1"
@@ -96,8 +94,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_0"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_2"
@@ -115,8 +112,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_2"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_4"
@@ -125,8 +121,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_3"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_5"
@@ -135,8 +130,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_4"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos" />
 
         <ImageView
             android:id="@+id/line_6"
@@ -146,8 +140,7 @@
             android:layout_marginStart="1dp"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_5"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_7"
@@ -156,8 +149,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_6"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <ImageView
             android:id="@+id/line_8"
@@ -166,8 +158,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/headline_off_none"
             app:layout_constraintStart_toEndOf="@+id/line_7"
-            app:layout_constraintBottom_toBottomOf="@id/line_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/line_sos"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/num_sos"
@@ -195,24 +186,21 @@
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_1"
             app:layout_constraintStart_toEndOf="@id/num_0"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/num_sos" />
         <ImageView
             android:id="@+id/num_2"
             android:layout_width="38.36dp"
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_2"
             app:layout_constraintStart_toEndOf="@id/num_1"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
         <ImageView
             android:id="@+id/num_3"
             android:layout_width="38.36dp"
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_3"
             app:layout_constraintStart_toEndOf="@id/num_2"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
         <ImageView
             android:id="@+id/num_4"
             android:layout_width="38.36dp"
@@ -227,32 +215,28 @@
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_5"
             app:layout_constraintStart_toEndOf="@id/num_4"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
         <ImageView
             android:id="@+id/num_6"
             android:layout_width="38.36dp"
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_6"
             app:layout_constraintStart_toEndOf="@id/num_5"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
         <ImageView
             android:id="@+id/num_7"
             android:layout_width="38.36dp"
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_7"
             app:layout_constraintStart_toEndOf="@id/num_6"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true"/>
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
         <ImageView
             android:id="@+id/num_8"
             android:layout_width="38.36dp"
             android:layout_height="25dp"
             android:src="@drawable/select_radiobutton_8"
             app:layout_constraintStart_toEndOf="@id/num_7"
-            app:layout_constraintBottom_toBottomOf="@id/num_sos"
-            android:clickable="true" />
+            app:layout_constraintBottom_toBottomOf="@id/num_sos"/>
 
 
     <SeekBar
