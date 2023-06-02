@@ -118,16 +118,25 @@
 
 
     <TextView
+        android:id="@+id/restore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:text="Restore Purchase"
+        android:text="Restore Purchases"
         android:textSize="16sp"
         android:textColor="#B2FFFFFF"
         android:fontFamily="@font/assistantextrabold"
         app:layout_constraintTop_toBottomOf="@id/remove_btn"
         app:layout_constraintStart_toStartOf="@id/remove_btn"
         app:layout_constraintEnd_toEndOf="@id/remove_btn"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#B2FFFFFF"
+        android:layout_marginTop="-3dp"
+        app:layout_constraintTop_toBottomOf="@id/restore"
+        app:layout_constraintStart_toStartOf="@id/restore"
+        app:layout_constraintEnd_toEndOf="@id/restore"/>
 
 
 
